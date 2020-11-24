@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js" charset="utf-8"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+        <title>Boolflix</title>
+    </head>
+    <body>
+        <div id="root">
+            <div class="contenitore_generale">
+                <h1>Cerca Film</h1>
+                <div class="contenitore_input">
+                    <input @keyup.enter="cerca_film" v-model="scelta_film" type="text" name="" value="" placeholder="Cerca il film">
+                    <button @click="cerca_film" type="button" name="button">Cerca</button>
+                </div>
+                <div class="contenitore_film">
+                    <div class="card_film" v-for="film in array_film">
+                        <h2>Titolo:</h2>
+                        <h3>{{ film.title }}</h3>
+                        <h2>Titolo Lingua Originale:</h2>
+                        <h3>{{ film.original_title }}</h3>
+                        <h2>Lingua Originale:</h2>
+                        <span>{{ film.original_language }}</span>
+                        <h2>Voto:</h2>
+                        <span>{{ film.vote_average /2 }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="main.js" charset="utf-8"></script>
+    </body>
+</html>
