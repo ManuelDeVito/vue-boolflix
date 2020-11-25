@@ -19,7 +19,9 @@ var app = new Vue ({
     data: {
 
         array_film: [],
-        scelta_film: ""
+        array_serie: [],
+        ricerca: "",
+        titolo_serietv: false
 
     },
 
@@ -27,19 +29,45 @@ var app = new Vue ({
 
         cerca_film() {
 
+        if (this.ricerca != '') {
+
             axios.get('https://api.themoviedb.org/3/search/movie', {
                 params: {
                     api_key: "9b2e1a25fff128b7002a2dffbcceb871",
-                    query: this.scelta_film,
+                    query: this.ricerca,
                 }
             }).then((risposta) => {
 
             this.array_film = risposta.data.results;
 
-            this.scelta_film = "";
-        })
+            })
+
+        }
 
     },
+
+    cerca_serietv() {
+
+    if (this.ricerca != '') {
+
+        axios.get('https://api.themoviedb.org/3/search/tv', {
+            params: {
+                api_key: "9b2e1a25fff128b7002a2dffbcceb871",
+                query: this.ricerca,
+            }
+        }).then((risposta_serie) => {
+
+        this.array_serie = risposta_serie.data.results;
+
+        this.titolo_serietv = true;
+
+        })
+
+    }
+
+    this.ricerca = "";
+
+},
 
     voto_stelle(voto) {
 

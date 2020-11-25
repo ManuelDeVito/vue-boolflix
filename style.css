@@ -4,9 +4,20 @@
     box-sizing: border-box;
 }
 
+#root {
+    background-color: yellow;
+    min-height: 100vh;
+}
+
 .contenitore_generale {
     max-width: 1500px;
     margin: auto;
+}
+
+.contenitore_generale::after {
+    clear: both;
+    content: '';
+    display: table;
 }
 
 h1 {
@@ -43,16 +54,15 @@ button{
     font-size: 20px;
 }
 
-.contenitore_film {
+.contenitore {
     width: 1500px;
-    height: 750px;
     margin: auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
 
-.card_film {
+.card_film, .card_serietv {
     width: 250px;
     height: 400px;
     background-color: orange;

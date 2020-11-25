@@ -13,10 +13,10 @@
             <div class="contenitore_generale">
                 <h1>Boolflix</h1>
                 <div class="contenitore_input">
-                    <input @keyup.enter="cerca_film()" v-model="scelta_film" type="text" name="" value="" placeholder="Cerca il film">
-                    <button @click="cerca_film()" type="button" name="button">Cerca</button>
+                    <input @keyup.enter="cerca_film(); cerca_serietv()" v-model="ricerca" type="text" name="" value="" placeholder="Cerca il film">
+                    <button @click="cerca_film(); cerca_serietv()" type="button" name="button">Cerca</button>
                 </div>
-                <div class="contenitore_film">
+                <div class="contenitore">
                     <div class="card_film" v-for="film in array_film">
                         <h2>Titolo:</h2>
                         <h3>{{ film.title }}</h3>
@@ -29,6 +29,23 @@
                         <div class="stelline_voto">
                             <i v-for="stelle in voto_stelle(film.vote_average)" class="fas fa-star"></i>
                             <i v-for="stelle in 5 - (voto_stelle(film.vote_average))" class="far fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <h1 v-if="titolo_serietv">Serie Tv</h1>
+                <div class="contenitore">
+                    <div class="card_serietv" v-for="serietv in array_serie">
+                        <h2>Titolo:</h2>
+                        <h3>{{ serietv.name }}</h3>
+                        <h2>Titolo Lingua Originale:</h2>
+                        <h3>{{ serietv.original_name }}</h3>
+                        <h2>Lingua Originale:</h2>
+                        <img :src="'bandiere/' + serietv.original_language + '.png'" :alt="serietv.original_language">
+                        <h2>Voto:</h2>
+                        <h2 v-if="voto_stelle(serietv.vote_average) == 0">Non Disponibile</h2>
+                        <div class="stelline_voto">
+                            <i v-for="stelle in voto_stelle(serietv.vote_average)" class="fas fa-star"></i>
+                            <i v-for="stelle in 5 - (voto_stelle(serietv.vote_average))" class="far fa-star"></i>
                         </div>
                     </div>
                 </div>
