@@ -20,54 +20,68 @@ var app = new Vue ({
 
         array_film: [],
         array_serie: [],
-        ricerca: "",
-        titolo_serietv: false
+        ricerca: '',
+        testo_titolo: '',
+        titolo_serietv: false,
+        ricerca_in_corso: false
 
     },
 
     methods: {
 
-        cerca_film() {
+    ricerca_nel_sito() {
 
-        if (this.ricerca != '') {
+        if (this.ricerca.trim() != '') {
 
-            axios.get('https://api.themoviedb.org/3/search/movie', {
-                params: {
-                    api_key: "9b2e1a25fff128b7002a2dffbcceb871",
-                    query: this.ricerca,
-                }
-            }).then((risposta) => {
+            this.ricerca_in_corso = true;
 
-            this.array_film = risposta.data.results;
+            this.array_film = [];
+            this.array_serie = [];
 
-            })
+            let testo_utente = this.ricerca;
+
+            this.ricerca = '';
+
+            this.testo_titolo = testo_utente;
+
+
+                    axios.get('https://api.themoviedb.org/3/search/movie', {
+                        params: {
+                            api_key: "9b2e1a25fff128b7002a2dffbcceb871",
+                            query: testo_utente,
+                        }
+                    }).then((risposta) => {
+
+                    this.array_film = risposta.data.results;
+
+                    this.ricerca_in_corso = false;
+
+                    });
+
+
+
+
+                    axios.get('https://api.themoviedb.org/3/search/tv', {
+                        params: {
+                            api_key: "9b2e1a25fff128b7002a2dffbcceb871",
+                            query: testo_utente,
+                        }
+                    }).then((risposta_serie) => {
+
+                    this.array_serie = risposta_serie.data.results;
+
+                    this.titolo_serietv = true;
+
+                    this.ricerca_in_corso = false;
+
+                    });
+
+                    this.ricerca = "";
+
 
         }
 
     },
-
-    cerca_serietv() {
-
-    if (this.ricerca != '') {
-
-        axios.get('https://api.themoviedb.org/3/search/tv', {
-            params: {
-                api_key: "9b2e1a25fff128b7002a2dffbcceb871",
-                query: this.ricerca,
-            }
-        }).then((risposta_serie) => {
-
-        this.array_serie = risposta_serie.data.results;
-
-        this.titolo_serietv = true;
-
-        })
-
-    }
-
-    this.ricerca = "";
-
-},
 
     voto_stelle(voto) {
 

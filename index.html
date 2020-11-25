@@ -13,8 +13,19 @@
             <div class="contenitore_generale">
                 <h1>Boolflix</h1>
                 <div class="contenitore_input">
-                    <input @keyup.enter="cerca_film(); cerca_serietv()" v-model="ricerca" type="text" name="" value="" placeholder="Cerca il film">
-                    <button @click="cerca_film(); cerca_serietv()" type="button" name="button">Cerca</button>
+                    <input @keyup.enter="ricerca_nel_sito" v-model="ricerca" type="text" name="" value="" placeholder="Cerca il film">
+                    <button @click="ricerca_nel_sito" type="button" name="button">Cerca</button>
+                </div>
+                <div class="contenitore">
+                    <h2 v-if="ricerca_in_corso">
+                        Ricerca in corso...
+                    </h2>
+                    <h2 v-else-if="testo_titolo && array_film.length && array_serie.length">
+                        Risultato ricerca: "{{ testo_titolo }}"
+                    </h2>
+                    <h3 v-else-if="testo_titolo">
+                        Nessun risultato trovato
+                    </h3>
                 </div>
                 <div class="contenitore">
                     <div class="card_film" v-for="film in array_film">
