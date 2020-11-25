@@ -5,8 +5,7 @@
 }
 
 .contenitore_generale {
-    width: 1500px;
-    height: 750px;
+    max-width: 1500px;
     margin: auto;
 }
 

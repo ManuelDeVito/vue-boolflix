@@ -20,6 +20,7 @@ var app = new Vue ({
 
         array_film: [],
         scelta_film: ""
+
     },
 
     methods: {
@@ -29,15 +30,24 @@ var app = new Vue ({
             axios.get('https://api.themoviedb.org/3/search/movie', {
                 params: {
                     api_key: "9b2e1a25fff128b7002a2dffbcceb871",
-                    query: this.scelta_film
+                    query: this.scelta_film,
                 }
             }).then((risposta) => {
 
             this.array_film = risposta.data.results;
+
+            this.scelta_film = "";
         })
 
+    },
 
-        }
+    voto_stelle(voto) {
+
+    return Math.round(voto / 2);
+
+    },
+
+
 },
 
     mounted() {
