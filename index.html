@@ -11,7 +11,7 @@
     <body>
         <div id="root">
             <div class="contenitore_generale">
-                <h1>Cerca Film</h1>
+                <h1>Boolflix</h1>
                 <div class="contenitore_input">
                     <input @keyup.enter="cerca_film()" v-model="scelta_film" type="text" name="" value="" placeholder="Cerca il film">
                     <button @click="cerca_film()" type="button" name="button">Cerca</button>
@@ -23,7 +23,7 @@
                         <h2>Titolo Lingua Originale:</h2>
                         <h3>{{ film.original_title }}</h3>
                         <h2>Lingua Originale:</h2>
-                        <span>{{ film.original_language }}</span>
+                        <img :src="'bandiere/' + film.original_language + '.png'" :alt="film.original_language">
                         <h2>Voto:</h2>
                         <h2 v-if="voto_stelle(film.vote_average) == 0">Non Disponibile</h2>
                         <div class="stelline_voto">

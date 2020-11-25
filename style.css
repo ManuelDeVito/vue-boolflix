@@ -71,3 +71,7 @@ h2 {
     color: red;
     text-transform: uppercase;
 }
+
+img {
+    max-width: 50px;
+}
