@@ -23,9 +23,10 @@ var app = new Vue ({
 
     },
 
+
     methods: {
 
-    ricerca_nel_sito() {
+        ricerca_nel_sito() {
 
         if (this.ricerca.trim() != '') {
 

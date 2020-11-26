@@ -21,38 +21,46 @@
             </header>
             <div class="contenitore_card">
                 <div class="contenitore">
-                    <h2 class="titolo_ricerca" v-if="ricerca_in_corso">
-                        Ricerca in corso...
-                    </h2>
-                    <h2 class="titolo_ricerca" v-else-if="testo_titolo && risultati_totali.length">
-                        Risultato ricerca: "{{ testo_titolo }}"
-                    </h2>
-                    <h3 class="titolo_ricerca" v-else-if="testo_titolo">
-                        Nessun risultato trovato
-                    </h3>
+                    <ul>
+                        <li class="titolo_ricerca" v-if="ricerca_in_corso">
+                            Ricerca in corso...
+                        </li>
+                        <li class="titolo_ricerca" v-else-if="testo_titolo && risultati_totali.length">
+                            Risultato ricerca: "{{ testo_titolo }}"
+                        </li>
+                        <li class="titolo_ricerca" v-else-if="testo_titolo">
+                            Nessun risultato trovato
+                        </li>
+                    </ul>
                 </div>
                 <div class="contenitore">
                     <div class="card" v-for="risultato in risultati_totali">
-                        <h2>Titolo:</h2>
-                        <h3>{{ risultato.title ? risultato.title : risultato.name }}</h3>
-                        <span v-if="risultato.poster_path != null">
-                            <img :src="url_base + risultato.poster_path" alt="immagine copertina">
-                        </span>
-                        <span v-else="risultato.poster_path == null">Copertina n.d</span>
-                        <h2>Titolo Lingua Originale:</h2>
-                        <h3>{{ risultato.original_title ? risultato.original_title : risultato.original_name }}</h3>
-                        <h2>Lingua Originale:</h2>
-                        <span
-                        v-if="array_bandiere.includes(risultato.original_language)">
-                            <img :src="'bandiere/' + risultato.original_language + '.png'" :alt="risultato.original_language">
-                        </span>
-                        <span v-else="{{ risultato.original_language }}"></span>
-                        <h2>Voto:</h2>
-                        <div v-if="risultato.vote_average > 0" class="stelline_voto">
-                            <i v-for="stelle in voto_stelle(risultato.vote_average)" class="fas fa-star"></i>
-                            <i v-for="stelle in 5 - (voto_stelle(risultato.vote_average))" class="far fa-star"></i>
-                        </div>
-                        <span v-else="voto_stelle(risultato.vote_average) == 0">Non Disponibile</span>
+                        <ul>
+                            <li class="poster" v-if="risultato.poster_path != null">
+                                <img id="img_poster" :src="url_base + risultato.poster_path" alt="immagine copertina">
+                            </li>
+                            <li v-else="risultato.poster_path == null">
+                                <img class="img_mancante" src="img_non_disponibile.jpg" alt="">
+                            </li>
+                            <li><strong>Titolo:</strong> {{ risultato.title ? risultato.title : risultato.name }}
+                            </li>
+                            <li><strong>Titolo Lingua Originale:</strong> {{ risultato.original_title ? risultato.original_title : risultato.original_name }}</li>
+                            <li><strong>Lingua Originale:</strong>
+                                <span
+                                v-if="array_bandiere.includes(risultato.original_language)">
+
+                                <img class="bandiere_lingua" :src="'bandiere/' + risultato.original_language + '.png'" :alt="risultato.original_language">
+                                </span>
+                            </li>
+                            <li v-else="{{ risultato.original_language }}"></li>
+                            <li><strong>Voto:</strong>
+                                <span v-if="risultato.vote_average > 0" class="stelline_voto">
+                                <i v-for="stelle in voto_stelle(risultato.vote_average)" class="fas fa-star"></i>
+                                <i v-for="stelle in 5 - (voto_stelle(risultato.vote_average))" class="far fa-star"></i>
+                                </span>
+                            </li>
+                            <li v-else="voto_stelle(risultato.vote_average) == 0">Non Disponibile</li>
+                        </ul>
                     </div>
                 </div>
             </div>
