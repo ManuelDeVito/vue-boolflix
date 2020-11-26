@@ -62,7 +62,7 @@ button{
     justify-content: center;
 }
 
-.card_film, .card_serietv {
+.card {
     width: 250px;
     height: 400px;
     background-color: orange;

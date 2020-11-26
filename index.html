@@ -20,7 +20,7 @@
                     <h2 v-if="ricerca_in_corso">
                         Ricerca in corso...
                     </h2>
-                    <h2 v-else-if="testo_titolo && array_film.length && array_serie.length">
+                    <h2 v-else-if="testo_titolo && risultati_totali.length">
                         Risultato ricerca: "{{ testo_titolo }}"
                     </h2>
                     <h3 v-else-if="testo_titolo">
@@ -28,36 +28,23 @@
                     </h3>
                 </div>
                 <div class="contenitore">
-                    <div class="card_film" v-for="film in array_film">
+                    <div class="card" v-for="risultato in risultati_totali">
                         <h2>Titolo:</h2>
-                        <h3>{{ film.title }}</h3>
+                        <h3>{{ risultato.title ? risultato.title : risultato.name }}</h3>
                         <h2>Titolo Lingua Originale:</h2>
-                        <h3>{{ film.original_title }}</h3>
+                        <h3>{{ risultato.original_title ? risultato.original_title : risultato.original_name }}</h3>
                         <h2>Lingua Originale:</h2>
-                        <img :src="'bandiere/' + film.original_language + '.png'" :alt="film.original_language">
+                        <span
+                        v-if="array_bandiere.includes(risultato.original_language)">
+                            <img :src="'bandiere/' + risultato.original_language + '.png'" :alt="risultato.original_language">
+                        </span>
+                        <span v-else="{{ risultato.original_language }}"></span>
                         <h2>Voto:</h2>
-                        <h2 v-if="voto_stelle(film.vote_average) == 0">Non Disponibile</h2>
-                        <div class="stelline_voto">
-                            <i v-for="stelle in voto_stelle(film.vote_average)" class="fas fa-star"></i>
-                            <i v-for="stelle in 5 - (voto_stelle(film.vote_average))" class="far fa-star"></i>
+                        <div v-if="risultato.vote_average > 0" class="stelline_voto">
+                            <i v-for="stelle in voto_stelle(risultato.vote_average)" class="fas fa-star"></i>
+                            <i v-for="stelle in 5 - (voto_stelle(risultato.vote_average))" class="far fa-star"></i>
                         </div>
-                    </div>
-                </div>
-                <h1 v-if="titolo_serietv">Serie Tv</h1>
-                <div class="contenitore">
-                    <div class="card_serietv" v-for="serietv in array_serie">
-                        <h2>Titolo:</h2>
-                        <h3>{{ serietv.name }}</h3>
-                        <h2>Titolo Lingua Originale:</h2>
-                        <h3>{{ serietv.original_name }}</h3>
-                        <h2>Lingua Originale:</h2>
-                        <img :src="'bandiere/' + serietv.original_language + '.png'" :alt="serietv.original_language">
-                        <h2>Voto:</h2>
-                        <h2 v-if="voto_stelle(serietv.vote_average) == 0">Non Disponibile</h2>
-                        <div class="stelline_voto">
-                            <i v-for="stelle in voto_stelle(serietv.vote_average)" class="fas fa-star"></i>
-                            <i v-for="stelle in 5 - (voto_stelle(serietv.vote_average))" class="far fa-star"></i>
-                        </div>
+                        <span v-else="voto_stelle(risultato.vote_average) == 0">Non Disponibile</span>
                     </div>
                 </div>
             </div>

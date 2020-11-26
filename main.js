@@ -1,16 +1,7 @@
-// Creare un layout di base con una barra di ricerca composta da un input e un pulsante. Quando l'utente clicca sul pulsante, facciamo una chiamata all'API https://api.themoviedb.org/3/search/movie ricordandoci di passare la nostra API key e la query di ricerca, ossia il testo inserito dall'utente nell'input.
-// Con i risultati che riceviamo, visualizziamo in pagina una card per ogni film, stampando per ciascuno:
-// titolo
-// titolo in lingua originale
-// lingua originale
-// voto
-
-// MILESTONE 2
-// La seconda milestone è a sua volta suddivisa in 3 punti:
-// 1- sostituire il voto numerico su base 10 in un voto su base 5 e visualizzare in totale 5 stelline, di cui tante piene quanto è il voto arrotondato (non gestiamo stelline a metà). Ad esempio, se il voto è 8.2, dobbiamo visualizzare 4 stelline piene e 1 stellina vuota (in totale sempre 5)
-// 2- sostituire la lingua con una bandierina che identifica il paese.
-// Suggerimento: scarichiamo una manciata di bandierine relative alle lingue che vogliamo gestire (attenzione che la lingua è "en", non "us" o "uk" :wink: ). Quindi andremo ad inserire solamente le bandierine che sappiamo di avere, mentre per le altre lingue di cui non abbiamo previsto la bandierina, lasciamo il codice della lingua testuale
-// 3- aggiungere ai risultati anche le serie tv. Attenzione che alcune chiavi per le serie tv sono diverse da quelle dei film, come ad esempio "title" per i film e "name" per le serie
+// Milestone 3:
+// In questa milestone come prima cosa aggiungiamo la copertina del film o della serie al nostro elenco. Ci viene passata dall’API solo la parte finale dell’URL, questo perché poi potremo generare da quella porzione di URL tante dimensioni diverse. Dovremo prendere quindi l’URL base delle immagini di TMDB: https://image.tmdb.org/t/p/​ per poi aggiungere la dimensione che vogliamo generare (troviamo tutte le dimensioni possibili a questo link: https://www.themoviedb.org/talk/53c11d4ec3a3684cf4006400​) per poi aggiungere la parte finale dell’URL passata dall’API.
+// Esempio di URL che torna la copertina di BORIS:
+// https://image.tmdb.org/t/p/w185/s2VDcsMh9ZhjFUxw77uCFDpTuXp.jpg
 
 var app = new Vue ({
 
@@ -18,12 +9,11 @@ var app = new Vue ({
 
     data: {
 
-        array_film: [],
-        array_serie: [],
+        risultati_totali: [],
         ricerca: '',
         testo_titolo: '',
-        titolo_serietv: false,
-        ricerca_in_corso: false
+        ricerca_in_corso: false,
+        array_bandiere: ['en','de','es','fr','it','ja','us']
 
     },
 
@@ -35,8 +25,7 @@ var app = new Vue ({
 
             this.ricerca_in_corso = true;
 
-            this.array_film = [];
-            this.array_serie = [];
+            this.risultati_totali = [];
 
             let testo_utente = this.ricerca;
 
@@ -52,13 +41,13 @@ var app = new Vue ({
                         }
                     }).then((risposta) => {
 
-                    this.array_film = risposta.data.results;
+                    this.risultati_totali =
+
+                    this.risultati_totali.concat(risposta.data.results);
 
                     this.ricerca_in_corso = false;
 
                     });
-
-
 
 
                     axios.get('https://api.themoviedb.org/3/search/tv', {
@@ -68,9 +57,9 @@ var app = new Vue ({
                         }
                     }).then((risposta_serie) => {
 
-                    this.array_serie = risposta_serie.data.results;
+                    this.risultati_totali =
 
-                    this.titolo_serietv = true;
+                    this.risultati_totali.concat(risposta_serie.data.results);
 
                     this.ricerca_in_corso = false;
 
