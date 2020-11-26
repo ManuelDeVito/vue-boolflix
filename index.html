@@ -10,20 +10,24 @@
     </head>
     <body>
         <div id="root">
-            <div class="contenitore_generale">
-                <h1>Boolflix</h1>
+            <header class="contenitore_header">
+                <div class="contenitore_titolo">
+                    <h1>Boolflix</h1>
+                </div>
                 <div class="contenitore_input">
                     <input @keyup.enter="ricerca_nel_sito" v-model="ricerca" type="text" name="" value="" placeholder="Cerca il film">
                     <button @click="ricerca_nel_sito" type="button" name="button">Cerca</button>
                 </div>
+            </header>
+            <div class="contenitore_card">
                 <div class="contenitore">
-                    <h2 v-if="ricerca_in_corso">
+                    <h2 class="titolo_ricerca" v-if="ricerca_in_corso">
                         Ricerca in corso...
                     </h2>
-                    <h2 v-else-if="testo_titolo && risultati_totali.length">
+                    <h2 class="titolo_ricerca" v-else-if="testo_titolo && risultati_totali.length">
                         Risultato ricerca: "{{ testo_titolo }}"
                     </h2>
-                    <h3 v-else-if="testo_titolo">
+                    <h3 class="titolo_ricerca" v-else-if="testo_titolo">
                         Nessun risultato trovato
                     </h3>
                 </div>
