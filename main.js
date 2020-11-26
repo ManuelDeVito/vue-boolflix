@@ -13,7 +13,9 @@ var app = new Vue ({
         ricerca: '',
         testo_titolo: '',
         ricerca_in_corso: false,
-        array_bandiere: ['en','de','es','fr','it','ja','us']
+        array_bandiere: ['en','de','es','fr','it','ja','us'],
+        url_base: 'https://image.tmdb.org/t/p/​w185',
+
 
     },
 
@@ -60,7 +62,7 @@ var app = new Vue ({
                     this.risultati_totali =
 
                     this.risultati_totali.concat(risposta_serie.data.results);
-
+                    console.log(this.risultati_totali);
                     this.ricerca_in_corso = false;
 
                     });
