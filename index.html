@@ -31,9 +31,10 @@
                     <div class="card" v-for="risultato in risultati_totali">
                         <h2>Titolo:</h2>
                         <h3>{{ risultato.title ? risultato.title : risultato.name }}</h3>
-                        <span>
-                            <img :src="'url_base' + risultato.poster_path" alt="immagine copertina">
+                        <span v-if="risultato.poster_path != null">
+                            <img :src="url_base + risultato.poster_path" alt="immagine copertina">
                         </span>
+                        <span v-else="risultato.poster_path == null">Copertina n.d</span>
                         <h2>Titolo Lingua Originale:</h2>
                         <h3>{{ risultato.original_title ? risultato.original_title : risultato.original_name }}</h3>
                         <h2>Lingua Originale:</h2>

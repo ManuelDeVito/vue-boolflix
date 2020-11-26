@@ -14,7 +14,7 @@ var app = new Vue ({
         testo_titolo: '',
         ricerca_in_corso: false,
         array_bandiere: ['en','de','es','fr','it','ja','us'],
-        url_base: 'https://image.tmdb.org/t/p/​w185',
+        url_base: 'https://image.tmdb.org/t/p/w185',
 
 
     },
