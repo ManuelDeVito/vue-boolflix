@@ -67,7 +67,7 @@ var app = new Vue ({
                     this.risultati_totali =
 
                     this.risultati_totali.concat(risposta_serie.data.results);
-
+                    console.log(this.risultati_totali);
                     this.ricerca_in_corso = false;
 
                     });
